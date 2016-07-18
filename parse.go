@@ -28,12 +28,13 @@ func (d *Device) parse(ua string) (*Device, error) {
 			return nil, err
 		}
 	}
-	if d.LenientParsing {
-		switch {
-		case d.Android.Ver != "":
-			d.ParsedInfo.OS.Name = "Android"
-			d.ParsedInfo.OS.Version = d.Android
-		}
+	switch d.ParsedInfo.OS.Name {
+	case "Android":
+		d.ParsedInfo.OS.Version = d.Android
+	case "iOS":
+		d.ParsedInfo.OS.Version = d.IOS
+	case "OSX":
+		d.ParsedInfo.OS.Version = d.OSX
 	}
 	return d, nil
 }
@@ -86,6 +87,7 @@ func (d *Device) parseRest(p *product) error {
 		d.LinuxVer = p.Version
 		return nil
 	case "Android":
+		d.ParsedInfo.OS.Name = "Android"
 		d.Android = ParseVersion(p.Version)
 		return nil
 	case "Release":
@@ -124,15 +126,19 @@ func (d *Device) parseComment(c string) error {
 		d.Security = c
 		return nil
 	case "iPhone":
+		d.ParsedInfo.OS.Name = "iOS"
 		d.IPhone = true
 		return nil
 	case "iPad":
+		d.ParsedInfo.OS.Name = "iOS"
 		d.IPad = true
 		return nil
 	case "iPod":
+		d.ParsedInfo.OS.Name = "iOS"
 		d.IPod = true
 		return nil
 	case "Macintosh":
+		d.ParsedInfo.OS.Name = "OSX"
 		d.Macintosh = true
 		return nil
 	}
@@ -151,6 +157,7 @@ func (d *Device) parseComment(c string) error {
 
 func (d *Device) parseAndroid(tok []string) error {
 	if tok[0] == "Android" && len(tok) > 1 {
+		d.ParsedInfo.OS.Name = "Android"
 		d.Android = ParseVersion(tok[1])
 		d.Android.Ver = strings.Join(tok[1:], " ")
 		return nil

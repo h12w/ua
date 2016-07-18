@@ -19,6 +19,10 @@ func TestParse(t *testing.T) {
 				Security: "U",
 				Model:    "TR718D",
 				Build:    "MASTER",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"2.1", 2, 1, 0},
+				},
 			},
 		},
 		{
@@ -35,6 +39,10 @@ func TestParse(t *testing.T) {
 				Chrome:  "30.0.0.0",
 				Mobile:  true,
 				Safari:  "537.36",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"4.4.2", 4, 4, 2},
+				},
 			},
 		},
 		{
@@ -48,6 +56,10 @@ func TestParse(t *testing.T) {
 				Build:   "ADR-1212030829",
 				Presto:  "2.11.355",
 				Version: "12.10",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"4.2.1", 4, 2, 1},
+				},
 			},
 		},
 		{
@@ -55,6 +67,10 @@ func TestParse(t *testing.T) {
 			ParsedInfo{
 				Dalvik:  "1.2.0",
 				Android: Version{"2.2.3 CPU 800MHz", 2, 2, 3},
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"2.2.3 CPU 800MHz", 2, 2, 3},
+				},
 			},
 		},
 		{
@@ -64,6 +80,10 @@ func TestParse(t *testing.T) {
 				Dalvik:  "1.6.0",
 				Model:   "GT-I9100",
 				MIUI:    "2.10.19",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"4.1.2", 4, 1, 2},
+				},
 			},
 		},
 		{
@@ -76,6 +96,10 @@ func TestParse(t *testing.T) {
 				Webkit:    "537.36",
 				Chrome:    "40.0.2214.111",
 				Safari:    "537.36",
+				OS: OS{
+					Name:    "OSX",
+					Version: Version{"10_10_2", 10, 10, 2},
+				},
 			},
 		},
 		{
@@ -90,6 +114,10 @@ func TestParse(t *testing.T) {
 				Mobile:    true,
 				MobileVer: "7B367",
 				Safari:    "531.21.10",
+				OS: OS{
+					Name:    "iOS",
+					Version: Version{"3_2", 3, 2, 0},
+				},
 			},
 		},
 		{
@@ -104,6 +132,10 @@ func TestParse(t *testing.T) {
 				Mobile:    true,
 				MobileVer: "11A465",
 				Safari:    "8536.25",
+				OS: OS{
+					Name:    "iOS",
+					Version: Version{"7_0", 7, 0, 0},
+				},
 			},
 		},
 		{
@@ -118,6 +150,10 @@ func TestParse(t *testing.T) {
 				Config:   "CLDC-1.1",
 				Mobile:   true,
 				Safari:   "534.30",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"4.1.9", 4, 1, 9},
+				},
 			},
 		},
 		{
@@ -132,6 +168,10 @@ func TestParse(t *testing.T) {
 				Chrome:  "30.0.0.0",
 				Mobile:  true,
 				Safari:  "5",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"4.4.2", 4, 4, 2},
+				},
 			},
 		},
 		{
@@ -147,11 +187,14 @@ func TestParse(t *testing.T) {
 				Webkit:   "533.16",
 				Version:  "5.0",
 				Safari:   "533.16",
+				OS: OS{
+					Name:    "Android",
+					Version: Version{"2.3.4", 2, 3, 4},
+				},
 			},
 		},
 	} {
-		device := &Device{LenientParsing: false}
-		device, err := device.parse(testcase.ua)
+		device, err := Parse(testcase.ua, false)
 		if err != nil {
 			t.Fatal(err)
 		}
