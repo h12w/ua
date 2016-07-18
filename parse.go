@@ -43,17 +43,17 @@ func (d *Device) parseFirst(p *product) error {
 	switch p.Name {
 	case "Mozilla":
 		d.Mozilla = p.Version
-		return d.parseComments(p.Comments)
+		return d.parseFirstComments(p.Comments)
 	case "Dalvik":
 		d.Dalvik = p.Version
-		return d.parseComments(p.Comments)
+		return d.parseFirstComments(p.Comments)
 	case "Opera":
 		d.Opera = p.Version
-		return d.parseComments(p.Comments)
+		return d.parseFirstComments(p.Comments)
 	default:
 		d.setModel(p.Name)
 		d.ModelVer = p.Version
-		return d.parseComments(p.Comments)
+		return d.parseFirstComments(p.Comments)
 	}
 	return fmt.Errorf("fail to parse first product: %s", d.UA)
 }
@@ -103,9 +103,9 @@ func (d *Device) parseRest(p *product) error {
 	return fmt.Errorf("fail to parse product %v: %s", p, d.UA)
 }
 
-func (d *Device) parseComments(comments []string) error {
+func (d *Device) parseFirstComments(comments []string) error {
 	for i, comment := range comments {
-		err := d.parseComment(comment)
+		err := d.parseFirstComment(comment)
 		if err != nil {
 			if i == len(comments)-1 {
 				d.setModel(comment)
@@ -117,7 +117,7 @@ func (d *Device) parseComments(comments []string) error {
 	return nil
 }
 
-func (d *Device) parseComment(c string) error {
+func (d *Device) parseFirstComment(c string) error {
 	switch c {
 	case "Linux":
 		d.Linux = true
@@ -133,7 +133,7 @@ func (d *Device) parseComment(c string) error {
 		d.ParsedInfo.OS.Name = "iOS"
 		d.IPad = true
 		return nil
-	case "iPod":
+	case "iPod", "iPod touch":
 		d.ParsedInfo.OS.Name = "iOS"
 		d.IPod = true
 		return nil

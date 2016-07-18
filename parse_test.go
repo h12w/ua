@@ -193,6 +193,22 @@ func TestParse(t *testing.T) {
 				},
 			},
 		},
+		{
+			`Mozilla/5.0 (iPod touch; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508`,
+			ParsedInfo{
+				Mozilla:   "5.0",
+				Model:     "iPod",
+				IPod:      true,
+				IOS:       Version{"8_2", 8, 2, 0},
+				Webkit:    "600.1.4",
+				Mobile:    true,
+				MobileVer: "12D508",
+				OS: OS{
+					Name:    "iOS",
+					Version: Version{"8_2", 8, 2, 0},
+				},
+			},
+		},
 	} {
 		device, err := Parse(testcase.ua, false)
 		if err != nil {
