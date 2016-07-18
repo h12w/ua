@@ -258,13 +258,6 @@ func ParseVersion(ver string) (v Version) {
 	return
 }
 
-func (v *Version) String() string {
-	if v.Ver != "" {
-		return v.Ver
-	}
-	return fmt.Sprintf("%d.%d.%d", v.Major, v.Minor, v.Patch)
-}
-
 func atoi(s string) int {
 	i, _ := strconv.Atoi(s)
 	return i
