@@ -61,9 +61,12 @@ Design Goals
 
 ### Accuracy
 
-The accuracy of the detection is determined by the completeness of the device database, then we might have to migrate the data from multiple sources. Automatic tests will be adapted from those resources as well as our internal data under ```bi-data/request``` table.
+The accuracy of the detection is determined by the completeness of the device database, then we might have to migrate the data from multiple sources. Automatic tests will be adapted from those resources.
 
-#### Detectors
+References
+----------
+
+### Detectors
 * [WURFL](wurfl.sourceforge.net)
 * [HandsetDetection](http://www.handsetdetection.com)
 * [DeviceMap](https://devicemap.apache.org)
@@ -71,11 +74,6 @@ The accuracy of the detection is determined by the completeness of the device da
 * [Device-Detector](https://github.com/piwik/device-detector)
 * [Detector](https://github.com/dmolsen/Detector).
 
-#### Parsers
+### Parsers
 * [user agent](https://github.com/mssola/user_agent)
 * [uaparser](https://github.com/varstr/uaparser)
-
-### Speed
-
-Benchmark tests will be established to profile and optimize the performance.
-
