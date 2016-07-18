@@ -1,9 +1,9 @@
 package ua
 
 type Device struct {
-	UA string
-	ParsedInfo
-	DetectedInfo
+	UA             string
+	ParsedInfo     `json:"parsed_info"`
+	DetectedInfo   `json:"detected_info"`
 	LenientParsing bool
 }
 
