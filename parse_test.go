@@ -209,6 +209,28 @@ func TestParse(t *testing.T) {
 				},
 			},
 		},
+		{
+			`Mozilla/5.0 (iPod touch; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 QuantcastSDK/iOS_1.5.3/1ash4s7hukmtddti-p5028vkzyy4gw2bk`,
+			ParsedInfo{
+				Mozilla:   "5.0",
+				Model:     "iPod",
+				IPod:      true,
+				IOS:       Version{"9_3_2", 9, 3, 2},
+				Webkit:    "601.1.46",
+				Mobile:    true,
+				MobileVer: "13F69",
+				OS: OS{
+					Name:    "iOS",
+					Version: Version{"9_3_2", 9, 3, 2},
+				},
+				Rest: []Product{
+					{
+						Name:    "QuantcastSDK",
+						Version: "iOS_1.5.3/1ash4s7hukmtddti-p5028vkzyy4gw2bk",
+					},
+				},
+			},
+		},
 	} {
 		device, err := Parse(testcase.ua, false)
 		if err != nil {

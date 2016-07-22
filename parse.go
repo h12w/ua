@@ -39,7 +39,7 @@ func (d *Device) parse(ua string) (*Device, error) {
 	return d, nil
 }
 
-func (d *Device) parseFirst(p *product) error {
+func (d *Device) parseFirst(p *Product) error {
 	switch p.Name {
 	case "Mozilla":
 		d.Mozilla = p.Version
@@ -58,7 +58,7 @@ func (d *Device) parseFirst(p *product) error {
 	return fmt.Errorf("fail to parse first product: %s", d.UA)
 }
 
-func (d *Device) parseRest(p *product) error {
+func (d *Device) parseRest(p *Product) error {
 	switch p.Name {
 	case "AppleWebKit":
 		d.Webkit = p.Version
@@ -100,7 +100,8 @@ func (d *Device) parseRest(p *product) error {
 		d.Config = p.Version
 		return nil
 	}
-	return fmt.Errorf("fail to parse product %v: %s", p, d.UA)
+	d.Rest = append(d.Rest, *p)
+	return nil
 }
 
 func (d *Device) parseFirstComments(comments []string) error {

@@ -6,16 +6,16 @@ import (
 	"strings"
 )
 
-type product struct {
+type Product struct {
 	Name     string
 	Version  string
 	Comments []string
 }
 
-func scan(ua string) (products []product, err error) {
+func scan(ua string) (products []Product, err error) {
 	buf := []byte(ua)
 	for len(buf) > 0 {
-		var p product
+		var p Product
 		p, buf = scanProduct(buf)
 		products = append(products, p)
 	}
@@ -25,7 +25,7 @@ func scan(ua string) (products []product, err error) {
 	return
 }
 
-func scanProduct(ua []byte) (s product, _ []byte) {
+func scanProduct(ua []byte) (s Product, _ []byte) {
 	token := readToken(ua)
 	s.Name, s.Version = scanNameVersion(token)
 	i := len(token)

@@ -39,6 +39,7 @@ type ParsedInfo struct {
 	Tablet    bool
 	Version   string
 	Webkit    string
+	Rest      []Product
 }
 
 type DetectedInfo struct {
