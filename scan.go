@@ -2,6 +2,7 @@ package ua
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -14,10 +15,15 @@ type Product struct {
 
 func scan(ua string) (products []Product, err error) {
 	buf := []byte(ua)
+	i := 0
 	for len(buf) > 0 {
 		var p Product
 		p, buf = scanProduct(buf)
 		products = append(products, p)
+		if i > 20 {
+			return nil, errors.New("UA scanning fails: too many loops")
+		}
+		i++
 	}
 	if len(products) == 0 {
 		err = fmt.Errorf("fail to parse products from: %s", ua)
@@ -26,6 +32,7 @@ func scan(ua string) (products []Product, err error) {
 }
 
 func scanProduct(ua []byte) (s Product, _ []byte) {
+	ua = bytes.TrimSpace(ua)
 	token := readToken(ua)
 	s.Name, s.Version = scanNameVersion(token)
 	i := len(token)
