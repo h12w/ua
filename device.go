@@ -68,3 +68,10 @@ type Size struct {
 	Width  int
 	Height int
 }
+
+func (d *Device) Model() string {
+	if d.DetectedInfo.Model != "" {
+		return d.DetectedInfo.Model
+	}
+	return d.ParsedInfo.Model
+}
