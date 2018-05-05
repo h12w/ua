@@ -6,7 +6,7 @@ import (
 	"os"
 	"encoding/json"
 
-	"h12.me/ua"
+	"h12.io/ua"
 )
 
 func main() {
